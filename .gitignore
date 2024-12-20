@@ -20,7 +20,7 @@ logs/
 *.out
 *.err
 
-# Data files
+# Data files 
 *.csv
 *.json
 *.xlsx
