@@ -25,6 +25,10 @@ logs/
 *.json
 *.xlsx
 
+*.png
+*.jpg
+*.jpeg
+
 # OS generated files
 .DS_Store
 Thumbs.db
