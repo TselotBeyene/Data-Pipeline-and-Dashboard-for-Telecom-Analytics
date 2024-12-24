@@ -20,7 +20,13 @@ def clean_data(df):
     df['Total DL (Bytes)'] = pd.to_numeric(df['Total DL (Bytes)'], errors='coerce').fillna(0)
     df['Total UL (Bytes)'] = pd.to_numeric(df['Total UL (Bytes)'], errors='coerce').fillna(0)
     
-    # Additional cleaning steps can be added here if necessary
+    # Remove any duplicates
+    df = df.drop_duplicates()
+    
+    # Optionally: Handle outliers (if necessary)
+    # Example: Removing rows where session duration exceeds a threshold (e.g., 10 hours)
+    df = df[df['Dur. (ms)'] <= 10*60*60*1000]
+    
     return df
 
 def perform_eda(df):
@@ -84,6 +90,11 @@ def plot_top_10_handsets(top_10_handsets):
     plt.title('Top 10 Handsets Used by Customers')
     plt.xlabel('Number of Users')
     plt.ylabel('Handset Type')
+    
+    # Add annotations on the bars
+    for i, v in enumerate(top_10_handsets.values):
+        plt.text(v + 10, i, str(v), va='center', fontweight='bold')
+    
     plt.show()
 
 def plot_top_5_handsets_per_manufacturer(top_5_handsets_per_manufacturer):
@@ -96,6 +107,11 @@ def plot_top_5_handsets_per_manufacturer(top_5_handsets_per_manufacturer):
         plt.title(f'Top 5 Handsets for {manufacturer}')
         plt.xlabel('Number of Users')
         plt.ylabel('Handset Type')
+        
+        # Add annotations on the bars
+        for i, v in enumerate(handsets.values):
+            plt.text(v + 10, i, str(v), va='center', fontweight='bold')
+        
         plt.show()
 
 def provide_recommendation(top_10_handsets, top_3_manufacturers, top_5_handsets_per_manufacturer):
